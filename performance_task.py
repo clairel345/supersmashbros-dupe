@@ -3,7 +3,7 @@ import pygame
 import random
 import time
 
-# start pygame
+#start pygame
 pygame.init()
 
 arena_list = [
@@ -11,17 +11,17 @@ arena_list = [
     'mario_kart.jpg'
 ]
 
-# Set the screen size
+#set the screen size
 screen_width = 800
 screen_height = 600
 screen = pygame.display.set_mode((screen_width, screen_height))
 
 pygame.display.set_caption("Kirby vs Panda. A Claire Production")
 
-# Font setup found by ai
+#font setup
 font = pygame.font.Font('Gaegu-Bold.ttf', 32)
 
-# Set up the clock
+#set up the clock
 clock = pygame.time.Clock()
 
 running = False
@@ -65,8 +65,10 @@ active = False
 def linesforinput():
   #first input
   pygame.draw.line(screen, (255,255,255), (270, 48), (410, 48), 2)
+    
   #second input
   pygame.draw.line(screen, (255,255,255), (270, 135), (410, 135), 2)
+  
   #arena
   pygame.draw.line(screen, (255,255,255), (270, 237), (410, 237), 2)
   
@@ -93,7 +95,6 @@ try:
 
         else:
           active = False
-  #ai helped improve the user experience for inputting on screen
       elif event.type == pygame.KEYDOWN:
         if active:  #if mouse on areas for inputs
           if event.key == pygame.K_BACKSPACE:
@@ -135,12 +136,12 @@ try:
     playerq('Arena (Type 1-5): ', 10, 200)
     playerq(arena, 270, 200)
 
-    # Update the screen
+    #update screen
     nextbutton()
     linesforinput()
     pygame.display.flip()
 
-    # Cap the frame rate/found method to add time with help of ai
+    #cap the frame rate/found method to add time with help of ai
     clock.tick(100)
 
 except Exception as e:
@@ -167,11 +168,11 @@ for number, pic in enumerate(arena_list):
     arena_img = 'space.jpeg'
 
 
-# Load the background image
+#load the background image
 background_img = pygame.image.load(arena_img).convert()
 background_img = pygame.transform.scale(background_img,(screen_width, screen_height))
 
-# Panda
+#panda
 player2 = pygame.image.load('panda.jpeg')
 player2_rect = player2.get_rect()
 
@@ -191,7 +192,7 @@ coin = pygame.transform.scale (coin, (50, 50))
 coin_rect = coin.get_rect()
 coin_rect.center = (screen_width // 2, screen_height // 2)
 
-# Set initial position of the player1
+#initial position of the player1
 player1_rect.centerx = screen_width - 600
 player1_rect.centery = screen_height // 3
 
@@ -264,7 +265,7 @@ def playagain():
 
 def reset_game():
   global player1_score, player2_score, winner
-  # Resets game variables to initial values
+  #resets game variables to initial values
   player1_score = 200
   player2_score = 200
   player1_rect.centerx = screen_width - 600
@@ -294,7 +295,6 @@ def game_over(first_total, second_total):
     winner = names[1]
 
 
-
   game_over_text = font.render(
       str(winner) + ' is the winner!', True, (255, 255, 255))
   esc_text = font.render("Click Esc to exit", True,
@@ -312,7 +312,7 @@ def showloss(loser, round):
   screen.blit(youlose_text, (180, 200))
   screen.blit(esc_text, (200, 240))
 
-def winnercount():  #found neater printing method found on ai
+def winnercount():  #found neater printing method on ai
   winnercount_text = font.render(f"{firstwins} vs {secondwins}", True,
                                  (255, 255, 255))
   screen.blit(winnercount_text, (350, 10))
@@ -357,18 +357,18 @@ def randcoin(show_coin, start_time, show_cointime, hide_cointime, coin_rect, scr
   
   return show_coin, start_time
 
-#speed boost stuff for *player 1*
+#speed boost stuff for player 1
 one_fasterspeed = 15
 one_normalspeed = 8
 one_speed = one_normalspeed
 
-#speed boost stuff for *player 2*
+#speed boost stuff for player 2
 two_fasterspeed = 15
 two_normalspeed = 8
 two_speed = two_normalspeed
 
 boost_duration = 3000 #how long the boost last
-boost_start = None #no boost start active initially; will fill later
+boost_start = None #no boost start active initially
 
 game_reset = False
 
@@ -390,7 +390,7 @@ while running:
     if event.type == pygame.QUIT:
       running = False
 
-  # Get the keys pressed
+  #get the keys pressed
   keys = pygame.key.get_pressed()
 
 
@@ -398,21 +398,16 @@ while running:
 
   catmvmt()
 
-  #fully done by ai but bc randcoin returns show_coin, start_time;..
-  #..those variables are being defined rn
   show_coin, start_time = randcoin(
             show_coin, start_time, show_cointime, hide_cointime,
             coin_rect, screen_width, screen_height)
 
 
   if keys[pygame.K_1]:
-    # Print the coordinates of player1_rect
+    #print the coordinates of player1_rect as a test
     onex = player1_rect.x
     oney = player1_rect.y
     print(f"X: {onex}, Y: {oney}")
-
-
-#python3 performance_task.py
 
   #prevents player from leaving screen
   if (player1_rect.x < -85):
@@ -513,7 +508,6 @@ while running:
     current_time = pygame.time.get_ticks()
     if current_time - boost_start >= boost_duration:
         #determines if its player 1 or 2 that got the boost
-        #THIS DOESNT WORK BC THEY COULD BOTH HAVE THE BOOST AHHHHHH
         if one_speed == one_normalspeed:
           two_speed = two_normalspeed
 
